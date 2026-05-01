@@ -1,0 +1,1735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thelver Pharmacy and Supermarket | Your Health. Your Home. One Destination.</title>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            /* Brand Colors */
+            --primary: #0a7c5c;
+            --primary-dark: #075e46;
+            --accent: #f5a623;
+            --bg: #f9fafb;
+            --text: #1a1a2e;
+            --white: #ffffff;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-500: #6b7280;
+            --gray-700: #374151;
+            
+            /* Spacing Scale (8px) */
+            --sp-1: 8px;
+            --sp-2: 16px;
+            --sp-3: 24px;
+            --sp-4: 32px;
+            --sp-6: 48px;
+            --sp-8: 64px;
+            --sp-12: 96px;
+            
+            /* Transitions */
+            --transition: all 0.3s ease;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* --- UI Components --- */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--sp-2);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            border: none;
+            gap: 8px;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-accent {
+            background-color: var(--accent);
+            color: var(--white);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--white);
+            color: var(--white);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--white);
+            color: var(--primary);
+        }
+
+        .section-padding {
+            padding: var(--sp-8) 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: var(--sp-6);
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: var(--sp-2);
+        }
+
+        .section-header p {
+            color: var(--gray-500);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* --- Page Loader --- */
+        #loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--white);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid var(--gray-200);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s infinite linear;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* --- Navigation --- */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: transparent;
+            transition: var(--transition);
+            padding: var(--sp-2) 0;
+        }
+
+        nav.sticky {
+            background: var(--white);
+            box-shadow: var(--shadow-md);
+            padding: var(--sp-1) 0;
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            gap: 10px;
+        }
+
+        .logo i {
+            color: var(--primary);
+            font-size: 1.8rem;
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-text span:first-child {
+            color: var(--primary);
+            font-weight: 800;
+            font-size: 1.5rem;
+            line-height: 1;
+        }
+
+        .logo-text span:last-child {
+            color: var(--accent);
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: var(--sp-4);
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--gray-700);
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--primary);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: var(--sp-3);
+        }
+
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+            font-size: 1.25rem;
+            color: var(--gray-700);
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -10px;
+            background: var(--accent);
+            color: var(--white);
+            font-size: 0.7rem;
+            font-weight: 800;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+        }
+
+        .menu-toggle span {
+            width: 30px;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 5px;
+            transition: var(--transition);
+        }
+
+        /* --- Hero Section --- */
+        #home {
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--primary) 0%, #1a1a2e 100%);
+            display: flex;
+            align-items: center;
+            padding-top: 100px;
+            position: relative;
+            color: var(--white);
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: var(--sp-6);
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: var(--sp-3);
+        }
+
+        .hero-text p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: var(--sp-4);
+            max-width: 600px;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: var(--sp-2);
+            margin-bottom: var(--sp-6);
+        }
+
+        .trust-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--sp-3);
+        }
+
+        .badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 8px 16px;
+            border-radius: 50px;
+            backdrop-filter: blur(5px);
+        }
+
+        .badge i {
+            color: var(--accent);
+        }
+
+        .hero-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: var(--sp-4);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: float 4s ease-in-out infinite;
+            display: none; /* JS will reveal */
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .hero-card h3 {
+            color: var(--accent);
+            margin-bottom: 12px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        #health-tip-content {
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        /* --- Services --- */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--sp-3);
+        }
+
+        .service-card {
+            background: var(--white);
+            padding: var(--sp-4);
+            border-radius: 16px;
+            transition: var(--transition);
+            border-top: 4px solid transparent;
+            box-shadow: var(--shadow-sm);
+            text-align: center;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+            border-top-color: var(--primary);
+        }
+
+        .service-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--gray-100);
+            color: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin: 0 auto var(--sp-2);
+            transition: var(--transition);
+        }
+
+        .service-card:hover .service-icon {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .service-card h3 {
+            margin-bottom: 12px;
+            font-size: 1.25rem;
+        }
+
+        .service-card p {
+            color: var(--gray-500);
+            font-size: 0.95rem;
+        }
+
+        /* --- Why Choose Us --- */
+        .why-section {
+            background: var(--white);
+        }
+
+        .why-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--sp-6);
+            align-items: center;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--sp-3);
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: var(--sp-3);
+            background: var(--bg);
+            border-radius: 16px;
+        }
+
+        .stat-number {
+            display: block;
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--primary);
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            color: var(--gray-500);
+            font-weight: 500;
+        }
+
+        .why-text h2 {
+            font-size: 2.5rem;
+            margin-bottom: var(--sp-2);
+        }
+
+        .promise-badge {
+            display: inline-block;
+            background: var(--accent);
+            color: var(--white);
+            padding: 8px 24px;
+            border-radius: 0 50px 50px 0;
+            font-weight: 700;
+            margin-top: var(--sp-3);
+            position: relative;
+            margin-left: -50px;
+            padding-left: 50px;
+        }
+
+        /* --- Products --- */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--sp-4);
+        }
+
+        .product-card {
+            background: var(--white);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .product-card:hover {
+            box-shadow: var(--shadow-lg);
+        }
+
+        .product-img {
+            height: 200px;
+            background: var(--gray-100);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--gray-300);
+        }
+
+        .product-info {
+            padding: var(--sp-2);
+        }
+
+        .product-badge {
+            background: var(--gray-100);
+            color: var(--gray-500);
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 50px;
+            text-transform: uppercase;
+        }
+
+        .product-name {
+            font-weight: 700;
+            margin: 8px 0;
+            font-size: 1.1rem;
+        }
+
+        .product-price {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .price {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        /* --- Slider Styling --- */
+        .slider-container {
+            position: relative;
+            overflow: hidden;
+            padding: 20px 0;
+        }
+
+        .slider-track {
+            display: flex;
+            transition: transform 0.5s ease;
+            gap: var(--sp-3);
+        }
+
+        .slider-item {
+            flex: 0 0 100%;
+        }
+
+        .slider-nav {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: var(--sp-3);
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            background: var(--gray-200);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .dot.active {
+            background: var(--primary);
+            width: 30px;
+            border-radius: 10px;
+        }
+
+        /* --- Testimonials --- */
+        .testimonial-card {
+            background: var(--white);
+            padding: var(--sp-4);
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .avatar {
+            width: 60px;
+            height: 60px;
+            background: var(--primary);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin: 0 auto 15px;
+        }
+
+        .stars {
+            color: var(--accent);
+            margin-bottom: 15px;
+        }
+
+        /* --- About Section --- */
+        .about-container {
+            display: grid;
+            grid-auto-flow: dense;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--sp-6);
+            align-items: center;
+        }
+
+        .about-illustration {
+            position: relative;
+            height: 400px;
+            background: var(--gray-100);
+            border-radius: 20px;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .pharmacy-cross {
+            width: 100px;
+            height: 100px;
+            background: var(--primary);
+            position: relative;
+        }
+
+        .pharmacy-cross::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 140px;
+            height: 40px;
+            background: var(--primary);
+        }
+
+        .pharmacy-cross::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px;
+            height: 140px;
+            background: var(--primary);
+        }
+
+        /* --- Contact --- */
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: var(--sp-6);
+        }
+
+        .contact-form-card {
+            background: var(--white);
+            padding: var(--sp-4);
+            border-radius: 16px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .form-group {
+            margin-bottom: var(--sp-2);
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--gray-200);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(10, 124, 92, 0.1);
+        }
+
+        .error-msg {
+            color: #ef4444;
+            font-size: 0.8rem;
+            margin-top: 4px;
+            display: none;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: var(--sp-4);
+        }
+
+        .info-card {
+            display: flex;
+            gap: var(--sp-2);
+        }
+
+        .info-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            color: var(--white);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .hours-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+
+        .hours-table td {
+            padding: 8px 0;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .today-highlight {
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        /* --- Footer --- */
+        footer {
+            background: #1a1a2e;
+            color: var(--white);
+            padding-top: var(--sp-8);
+            padding-bottom: var(--sp-4);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr 1.5fr;
+            gap: var(--sp-4);
+            margin-bottom: var(--sp-6);
+        }
+
+        .footer-logo .logo-text span:first-child { color: var(--white); }
+
+        .footer-col h4 {
+            font-size: 1.2rem;
+            margin-bottom: var(--sp-3);
+            color: var(--accent);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: var(--gray-300);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--white);
+            padding-left: 5px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .bottom-bar {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: var(--sp-4);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            color: var(--gray-500);
+        }
+
+        .scroll-top {
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            color: var(--white);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        /* --- WhatsApp FAB --- */
+        .whatsapp-fab {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: #25d366;
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            box-shadow: var(--shadow-lg);
+            z-index: 1000;
+            text-decoration: none;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+            70% { box-shadow: 0 0 0 20px rgba(37, 211, 102, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+        }
+
+        .fab-tooltip {
+            position: absolute;
+            right: 70px;
+            background: #333;
+            color: var(--white);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+
+        .whatsapp-fab:hover .fab-tooltip {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* --- Toast Notification --- */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: #333;
+            color: var(--white);
+            padding: 12px 24px;
+            border-radius: 8px;
+            z-index: 2000;
+            transition: var(--transition);
+            box-shadow: var(--shadow-lg);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* --- Scroll Animations --- */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .fade-in.appear {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- Responsive Styles --- */
+        @media (max-width: 1024px) {
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+            .hero-content { grid-template-columns: 1fr; }
+            .hero-card { display: none !important; }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                height: 100vh;
+                background: var(--white);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                transition: 0.5s;
+                box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .menu-toggle { display: flex; }
+            .nav-actions .btn { display: none; }
+            
+            .why-container, .about-container, .contact-container {
+                grid-template-columns: 1fr;
+            }
+
+            .about-container { grid-template-rows: auto auto; }
+            .about-illustration { order: -1; }
+
+            .section-header h2 { font-size: 2rem; }
+            .hero-text h1 { font-size: 2.5rem; }
+
+            .product-grid {
+                display: flex;
+                overflow-x: auto;
+                padding-bottom: 20px;
+                gap: 20px;
+                scroll-snap-type: x mandatory;
+            }
+
+            .product-card {
+                flex: 0 0 280px;
+                scroll-snap-align: start;
+            }
+        }
+
+        /* Hamburger Animation */
+        .menu-toggle.open span:nth-child(1) { transform: rotate(45deg) translate(6px, 6px); }
+        .menu-toggle.open span:nth-child(2) { opacity: 0; }
+        .menu-toggle.open span:nth-child(3) { transform: rotate(-45deg) translate(6px, -7px); }
+    </style>
+</head>
+<body>
+
+    <!-- Page Loader -->
+    <div id="loader">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="container nav-content">
+            <a href="#home" class="logo">
+                <i class="fa-solid fa-prescription-bottle-medical"></i>
+                <div class="logo-text">
+                    <span>Thelver</span>
+                    <span>Pharmacy & Supermarket</span>
+                </div>
+            </a>
+
+            <ul class="nav-links" id="nav-links">
+                <li><a href="#home" class="nav-link active">Home</a></li>
+                <li><a href="#services" class="nav-link">Services</a></li>
+                <li><a href="#products" class="nav-link">Products</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+
+            <div class="nav-actions">
+                <div class="cart-icon">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span class="cart-count" id="cart-count">0</span>
+                </div>
+                <a href="tel:+2348000000000" class="btn btn-primary">
+                    <i class="fa-solid fa-phone"></i> Call Us Now
+                </a>
+                <div class="menu-toggle" id="menu-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home">
+        <div class="container hero-content">
+            <div class="hero-text">
+                <h1 class="fade-in">Your Health. Your Home. One Destination.</h1>
+                <p class="fade-in">Premium pharmacy services, prescription management, and everyday groceries — all under one roof in your community.</p>
+                <div class="hero-btns fade-in">
+                    <a href="#services" class="btn btn-primary">Explore Our Services</a>
+                    <a href="#products" class="btn btn-outline">Shop Products</a>
+                </div>
+                <div class="trust-badges fade-in">
+                    <div class="badge"><i class="fa-solid fa-user-doctor"></i> Licensed Pharmacists</div>
+                    <div class="badge"><i class="fa-solid fa-clock"></i> Same-Day Prescriptions</div>
+                    <div class="badge"><i class="fa-solid fa-calendar-check"></i> Open 7 Days</div>
+                    <div class="badge"><i class="fa-solid fa-heart-pulse"></i> Free Health Advice</div>
+                </div>
+            </div>
+            <div class="hero-card fade-in" id="hero-tip-card">
+                <h3>Today's Health Tip</h3>
+                <p id="health-tip-content">Loading your health tip...</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="section-padding">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2>What We Offer</h2>
+                <p>From vital medication to your daily grocery needs, we provide a wide range of services to keep you and your home healthy.</p>
+            </div>
+            <div class="services-grid">
+                <!-- 1 -->
+                <div class="service-card fade-in">
+                    <div class="service-icon"><i class="fa-solid fa-pills"></i></div>
+                    <h3>Prescription Dispensing</h3>
+                    <p>Accurate and timely medication preparation by our expert pharmacists.</p>
+                </div>
+                <!-- 2 -->
+                <div class="service-card fade-in">
+                    <div class="service-icon"><i class="fa-solid fa-hospital-user"></i></div>
+                    <h3>Chronic Med Management</h3>
+                    <p>Refill reminders and counseling for long-term health conditions.</p>
+                </div>
+                <!-- 3 -->
+                <div class="service-card fade-in">
+                    <div class="service-icon"><i class="fa-solid fa-stethoscope"></i></div>
+                    <h3>Health Consultations</h3>
+                    <p>Speak with professional pharmacists about any health concerns.</p>
+                </div>
+                <!-- 4 -->
+                <div class="service-card fade-in">
+                    <div class="service-icon"><i class="fa-solid fa-syringe"></i></div>
+                    <h3>Vaccinations</h3>
+                    <p>Flu shots, travel vaccines, and more for your protection.</p>
+                </div>
+                <!-- 5 -->
+                <div class="service-card fade-in">
+                    <div class="service-icon"><i class="fa-solid fa-gauge-high"></i></div>
+                    <h3>BP & Glucose Testing</h3>
+                    <p>Quick on-site screenings to monitor your vital levels.</p>
+                </div>
+                <!-- 6 -->
+                <div class="service-card fade-in">
+                    <div class="service-icon"><i class="fa-solid fa-baby"></i></div>
+                    <h3>Baby & Maternal Care</h3>
+                    <p>Premium care products for mothers and their newborns.</p>
+                </div>
+                <!-- 7 -->
+                <div class="service-card fade-in">
+                    <div class="service-icon"><i class="fa-solid fa-capsules"></i></div>
+                    <h3>Vitamins & Supplements</h3>
+                    <p>Boost your immunity with our high-quality vitamin selection.</p>
+                </div>
+                <!-- 8 -->
+                <div class="service-card fade-in">
+                    <div class="service-icon"><i class="fa-solid fa-sparkles"></i></div>
+                    <h3>Cosmetics & Personal Care</h3>
+                    <p>Look and feel your best with our top-tier beauty brands.</p>
+                </div>
+                <!-- 9 -->
+                <div class="service-card fade-in">
+                    <div class="service-icon"><i class="fa-solid fa-cart-flatbed"></i></div>
+                    <h3>Household & Groceries</h3>
+                    <p>Daily essentials and fresh groceries for your convenience.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section class="section-padding why-section">
+        <div class="container why-container">
+            <div class="stats-grid fade-in">
+                <div class="stat-item">
+                    <span class="stat-number" data-target="10000">0</span>
+                    <span class="stat-label">Customers Served</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" data-target="15">0</span>
+                    <span class="stat-label">Years in Business</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" data-target="500">0</span>
+                    <span class="stat-label">Products Stocked</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" data-target="98">0</span>
+                    <span class="stat-label">Customer Satisfaction %</span>
+                </div>
+            </div>
+            <div class="why-text fade-in">
+                <h2>Why Our Community Trusts Us</h2>
+                <p>Since 2009, Thelver has been more than just a shop. We are a health partner committed to providing genuine products at prices you can afford.</p>
+                <p>Our pharmacists are always on floor, ready to listen and offer advice that goes beyond the counter.</p>
+                <div class="promise-badge">Our Promise: Quality, Care, and Integrity</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products" class="section-padding">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2>Popular Products</h2>
+                <p>Browse some of our most requested items. Visit us in-store for our full range of 500+ products.</p>
+            </div>
+            <div class="product-grid" id="product-grid">
+                <!-- Products will be rendered by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Health Tips Carousel -->
+    <section class="section-padding" style="background-color: var(--gray-100);">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2>Wellness Corner</h2>
+                <p>Small habits lead to a healthier life. Explore our top tips for you and your family.</p>
+            </div>
+            <div class="slider-container fade-in">
+                <div class="slider-track" id="tips-slider">
+                    <!-- Tip 1 -->
+                    <div class="slider-item">
+                        <div class="testimonial-card">
+                            <div class="service-icon"><i class="fa-solid fa-hands-bubbles"></i></div>
+                            <h3>Hand Hygiene</h3>
+                            <p>Wash your hands frequently with soap for at least 20 seconds to prevent the spread of germs.</p>
+                        </div>
+                    </div>
+                    <!-- Tip 2 -->
+                    <div class="slider-item">
+                        <div class="testimonial-card">
+                            <div class="service-icon"><i class="fa-solid fa-glass-water"></i></div>
+                            <h3>Stay Hydrated</h3>
+                            <p>Proper hydration supports every system in your body. Aim for 8 glasses of water a day.</p>
+                        </div>
+                    </div>
+                    <!-- Tip 3 -->
+                    <div class="slider-item">
+                        <div class="testimonial-card">
+                            <div class="service-icon"><i class="fa-solid fa-heart-pulse"></i></div>
+                            <h3>Regular BP Checks</h3>
+                            <p>High blood pressure often has no symptoms. Check it regularly at our pharmacy.</p>
+                        </div>
+                    </div>
+                    <!-- Tip 4 -->
+                    <div class="slider-item">
+                        <div class="testimonial-card">
+                            <div class="service-icon"><i class="fa-solid fa-clock-rotate-left"></i></div>
+                            <h3>Medication Timing</h3>
+                            <p>Consistency is key. Take your medications at the same time every day for maximum effectiveness.</p>
+                        </div>
+                    </div>
+                    <!-- Tip 5 -->
+                    <div class="slider-item">
+                        <div class="testimonial-card">
+                            <div class="service-icon"><i class="fa-solid fa-calendar-check"></i></div>
+                            <h3>Annual Screenings</h3>
+                            <p>Prevention is better than cure. Schedule a full check-up at least once a year.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="slider-nav" id="tips-dots"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="section-padding">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2>What Our Community Says</h2>
+            </div>
+            <div class="slider-container fade-in">
+                <div class="slider-track" id="testi-slider">
+                    <!-- Testi 1 -->
+                    <div class="slider-item">
+                        <div class="testimonial-card">
+                            <div class="avatar">AO</div>
+                            <div class="stars">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            </div>
+                            <p>"Thelver is my go-to for everything. The pharmacists are extremely helpful and always explain how to take my meds properly."</p>
+                            <h4 style="margin-top: 15px;">— Adebayo O.</h4>
+                        </div>
+                    </div>
+                    <!-- Testi 2 -->
+                    <div class="slider-item">
+                        <div class="testimonial-card">
+                            <div class="avatar">CK</div>
+                            <div class="stars">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            </div>
+                            <p>"Best supermarket prices in the area. I love that I can get my groceries and my vitamins in one quick trip."</p>
+                            <h4 style="margin-top: 15px;">— Chinelo K.</h4>
+                        </div>
+                    </div>
+                    <!-- Testi 3 -->
+                    <div class="slider-item">
+                        <div class="testimonial-card">
+                            <div class="avatar">EJ</div>
+                            <div class="stars">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            </div>
+                            <p>"Top-notch service! They had a rare medication I couldn't find elsewhere. Highly professional team."</p>
+                            <h4 style="margin-top: 15px;">— Emeka J.</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="slider-nav" id="testi-dots"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="about" class="section-padding" style="background-color: var(--white);">
+        <div class="container about-container">
+            <div class="about-text fade-in">
+                <h2>Part of Your Community Since 2009</h2>
+                <p>Thelver Pharmacy and Supermarket was founded on a simple principle: health care and daily essentials should be accessible, affordable, and personal.</p>
+                <p>Over the years, we've grown alongside our neighbors, building a team of qualified professionals who don't just see customers, but members of our community family.</p>
+                <div style="margin-top: 20px;">
+                    <div style="display: flex; gap: 15px; margin-bottom: 15px; align-items: center;">
+                        <div style="color: var(--primary); font-size: 1.5rem;"><i class="fa-solid fa-user-check"></i></div>
+                        <div>
+                            <h4 style="margin-bottom: 0;">Qualified Team</h4>
+                            <p style="font-size: 0.85rem; margin: 0;">Experienced pharmacists and staff.</p>
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 15px; margin-bottom: 15px; align-items: center;">
+                        <div style="color: var(--primary); font-size: 1.5rem;"><i class="fa-solid fa-shield-check"></i></div>
+                        <div>
+                            <h4 style="margin-bottom: 0;">Genuine Products</h4>
+                            <p style="font-size: 0.85rem; margin: 0;">Direct sourcing from trusted manufacturers.</p>
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 15px; margin-bottom: 15px; align-items: center;">
+                        <div style="color: var(--primary); font-size: 1.5rem;"><i class="fa-solid fa-tags"></i></div>
+                        <div>
+                            <h4 style="margin-bottom: 0;">Affordable Prices</h4>
+                            <p style="font-size: 0.85rem; margin: 0;">Fair pricing for every household.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="about-illustration fade-in">
+                <div class="pharmacy-cross"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section-padding">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2>Get in Touch</h2>
+                <p>Have a question or need a prescription refill? Contact us today.</p>
+            </div>
+            <div class="contact-container">
+                <div class="contact-form-card fade-in">
+                    <form id="contact-form">
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input type="text" id="name" placeholder="John Doe">
+                            <span class="error-msg" id="name-error">Please enter your name</span>
+                        </div>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                            <div class="form-group">
+                                <label>Phone Number</label>
+                                <input type="tel" id="phone" placeholder="0800 000 0000">
+                                <span class="error-msg" id="phone-error">Invalid Nigerian number</span>
+                            </div>
+                            <div class="form-group">
+                                <label>Email Address</label>
+                                <input type="email" id="email" placeholder="john@example.com">
+                                <span class="error-msg" id="email-error">Invalid email address</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Enquiry Type</label>
+                            <select id="enquiry">
+                                <option value="">Select an option</option>
+                                <option value="Prescription">Prescription Refill</option>
+                                <option value="Availability">Product Availability</option>
+                                <option value="General">General Enquiry</option>
+                                <option value="Complaint">Complaint</option>
+                            </select>
+                            <span class="error-msg" id="enquiry-error">Please select a type</span>
+                        </div>
+                        <div class="form-group">
+                            <label>Your Message</label>
+                            <textarea id="message" rows="4" placeholder="How can we help you?"></textarea>
+                            <span class="error-msg" id="message-error">Message cannot be empty</span>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message</button>
+                        <p id="success-msg" style="display: none; color: var(--primary); text-align: center; margin-top: 15px; font-weight: 700;">
+                            <i class="fa-solid fa-circle-check"></i> Message sent successfully!
+                        </p>
+                    </form>
+                </div>
+                
+                <div class="contact-info fade-in">
+                    <div class="info-card">
+                        <div class="info-icon"><i class="fa-solid fa-phone"></i></div>
+                        <div>
+                            <h4>Call Us</h4>
+                            <p>+234 800 000 0000</p>
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-icon"><i class="fa-solid fa-envelope"></i></div>
+                        <div>
+                            <h4>Email Us</h4>
+                            <p>care@thelver.com</p>
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-icon"><i class="fa-solid fa-location-dot"></i></div>
+                        <div>
+                            <h4>Our Location</h4>
+                            <p>12 Market Road, Lagos, Nigeria</p>
+                        </div>
+                    </div>
+                    <div class="info-card" style="flex-direction: column;">
+                        <div style="display: flex; gap: var(--sp-2); margin-bottom: 10px;">
+                            <div class="info-icon"><i class="fa-solid fa-clock"></i></div>
+                            <h4>Opening Hours</h4>
+                        </div>
+                        <table class="hours-table">
+                            <tr id="day-1"><td>Monday - Friday</td><td style="text-align: right;">8:00 AM - 8:00 PM</td></tr>
+                            <tr id="day-6"><td>Saturday</td><td style="text-align: right;">8:00 AM - 8:00 PM</td></tr>
+                            <tr id="day-0"><td>Sunday</td><td style="text-align: right;">10:00 AM - 5:00 PM</td></tr>
+                        </table>
+                    </div>
+                    <!-- Map Placeholder -->
+                    <div style="height: 150px; background: var(--gray-200); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--gray-500);">
+                        <i class="fa-solid fa-map-location-dot" style="font-size: 2rem;"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col footer-logo">
+                    <a href="#home" class="logo">
+                        <i class="fa-solid fa-prescription-bottle-medical"></i>
+                        <div class="logo-text">
+                            <span>Thelver</span>
+                            <span>Pharmacy & Supermarket</span>
+                        </div>
+                    </a>
+                    <p style="margin-top: 20px; font-size: 0.9rem; color: var(--gray-300);">Your trusted partner for health and groceries since 2009.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                        <a href="https://wa.me/2348000000000"><i class="fa-brands fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#products">Products</a></li>
+                        <li><a href="#about">About Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Our Services</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Medication</a></li>
+                        <li><a href="#">Consultations</a></li>
+                        <li><a href="#">Supermarket</a></li>
+                        <li><a href="#">Baby Care</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Newsletter</h4>
+                    <p style="font-size: 0.85rem; margin-bottom: 15px; color: var(--gray-300);">Subscribe for health tips and weekly supermarket offers.</p>
+                    <div style="display: flex;">
+                        <input type="email" placeholder="Email address" style="padding: 10px; border-radius: 8px 0 0 8px; border: none; flex: 1;">
+                        <button class="btn btn-primary" style="border-radius: 0 8px 8px 0; padding: 10px 15px;">Join</button>
+                    </div>
+                </div>
+            </div>
+            <div class="bottom-bar">
+                <p>&copy; 2026 Thelver Pharmacy and Supermarket. Built with care for our community.</p>
+                <div class="scroll-top" id="scroll-top"><i class="fa-solid fa-arrow-up"></i></div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp FAB -->
+    <a href="https://wa.me/2348000000000" target="_blank" class="whatsapp-fab">
+        <i class="fa-brands fa-whatsapp"></i>
+        <div class="fab-tooltip">Chat with us on WhatsApp</div>
+    </a>
+
+    <!-- Toast -->
+    <div id="toast" class="toast">
+        <i class="fa-solid fa-circle-check" style="color: #2ecc71;"></i>
+        <span id="toast-msg">Item added to cart!</span>
+    </div>
+
+    <!-- MAIN JAVASCRIPT -->
+    <script>
+        // --- 11. Page Loader ---
+        window.addEventListener('load', () => {
+            const loader = document.getElementById('loader');
+            setTimeout(() => {
+                loader.style.opacity = '0';
+                setTimeout(() => {
+                    loader.style.display = 'none';
+                }, 500);
+            }, 1000);
+        });
+
+        // --- 1. Hamburger Menu ---
+        const menuToggle = document.getElementById('menu-toggle');
+        const navLinks = document.getElementById('nav-links');
+        const navLinkItems = document.querySelectorAll('.nav-link');
+
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('open');
+            navLinks.classList.toggle('active');
+        });
+
+        navLinkItems.forEach(item => {
+            item.addEventListener('click', () => {
+                menuToggle.classList.remove('open');
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // --- 2. Sticky Navbar ---
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('sticky');
+            } else {
+                navbar.classList.remove('sticky');
+            }
+        });
+
+        // --- 3. Scroll Spy ---
+        const sections = document.querySelectorAll('section');
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - 150) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinkItems.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').includes(current)) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // --- 4. IntersectionObserver Fade-in ---
+        const faders = document.querySelectorAll('.fade-in');
+        const appearOptions = {
+            threshold: 0.15,
+            rootMargin: "0px 0px -50px 0px"
+        };
+
+        const appearOnScroll = new IntersectionObserver(function(entries, appearOnScroll) {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                entry.target.classList.add('appear');
+                appearOnScroll.unobserve(entry.target);
+                
+                // Trigger count-up if it's the stats section
+                if (entry.target.classList.contains('stats-grid')) {
+                    startCountUp();
+                }
+            });
+        }, appearOptions);
+
+        faders.forEach(fader => {
+            appearOnScroll.observe(fader);
+        });
+
+        // --- 5. Count-Up Animation ---
+        function startCountUp() {
+            const counters = document.querySelectorAll('.stat-number');
+            const speed = 200;
+
+            counters.forEach(counter => {
+                const updateCount = () => {
+                    const target = +counter.getAttribute('data-target');
+                    const count = +counter.innerText;
+                    const inc = target / speed;
+
+                    if (count < target) {
+                        counter.innerText = Math.ceil(count + inc);
+                        setTimeout(updateCount, 1);
+                    } else {
+                        counter.innerText = target + (target > 100 ? '+' : '');
+                    }
+                };
+                updateCount();
+            });
+        }
+
+        // --- 6. Product Data & Cart Logic ---
+        const products = [
+            { id: 1, name: 'Paracetamol 500mg', category: 'Medicine', price: 1200, icon: 'fa-tablets' },
+            { id: 2, name: 'Vitamin C 1000mg', category: 'Supplements', price: 2500, icon: 'fa-capsules' },
+            { id: 3, name: 'Blood Pressure Monitor', category: 'Health Gear', price: 18500, icon: 'fa-gauge' },
+            { id: 4, name: 'Hand Sanitizer 500ml', category: 'Hygiene', price: 1500, icon: 'fa-bottle-droplet' },
+            { id: 5, name: 'Baby Diapers (Pack)', category: 'Baby Care', price: 7800, icon: 'fa-baby' },
+            { id: 6, name: 'Multivitamin Gummies', category: 'Supplements', price: 4200, icon: 'fa-candy-cane' },
+            { id: 7, name: 'Fresh Milk 1L', category: 'Supermarket', price: 1100, icon: 'fa-cow' },
+            { id: 8, name: 'Sunscreen SPF 50', category: 'Personal Care', price: 5500, icon: 'fa-sun' }
+        ];
+
+        let cartCountValue = 0;
+        const cartCountDisplay = document.getElementById('cart-count');
+        const productGrid = document.getElementById('product-grid');
+
+        function renderProducts() {
+            productGrid.innerHTML = products.map(p => `
+                <div class="product-card fade-in">
+                    <div class="product-img"><i class="fa-solid ${p.icon}"></i></div>
+                    <div class="product-info">
+                        <span class="product-badge">${p.category}</span>
+                        <h3 class="product-name">${p.name}</h3>
+                        <div class="product-price">
+                            <span class="price">₦${p.price.toLocaleString()}</span>
+                            <button class="btn btn-primary" onclick="addToCart('${p.name}')">
+                                <i class="fa-solid fa-plus"></i> Add
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        renderProducts();
+
+        function addToCart(name) {
+            cartCountValue++;
+            cartCountDisplay.innerText = cartCountValue;
+            showToast(`${name} added to cart!`);
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-msg').innerText = msg;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // --- 7. Health Tips Slider & 8. Testimonials Slider ---
+        function initSlider(trackId, dotsId) {
+            const track = document.getElementById(trackId);
+            const dotsContainer = document.getElementById(dotsId);
+            const items = track.querySelectorAll('.slider-item');
+            let currentIdx = 0;
+
+            // Create dots
+            items.forEach((_, i) => {
+                const dot = document.createElement('div');
+                dot.classList.add('dot');
+                if (i === 0) dot.classList.add('active');
+                dot.addEventListener('click', () => goToSlide(i));
+                dotsContainer.appendChild(dot);
+            });
+
+            const dots = dotsContainer.querySelectorAll('.dot');
+
+            function goToSlide(n) {
+                currentIdx = n;
+                const offset = -currentIdx * 100;
+                track.style.transform = `translateX(${offset}%)`;
+                dots.forEach(d => d.classList.remove('active'));
+                dots[currentIdx].classList.add('active');
+            }
+
+            // Auto Play
+            setInterval(() => {
+                currentIdx = (currentIdx + 1) % items.length;
+                goToSlide(currentIdx);
+            }, 5000);
+        }
+
+        initSlider('tips-slider', 'tips-dots');
+        initSlider('testi-slider', 'testi-dots');
+
+        // --- 9. Contact Form Validation ---
+        const contactForm = document.getElementById('contact-form');
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            let isValid = true;
+            
+            const name = document.getElementById('name');
+            const phone = document.getElementById('phone');
+            const email = document.getElementById('email');
+            const enquiry = document.getElementById('enquiry');
+            const message = document.getElementById('message');
+
+            // Reset errors
+            document.querySelectorAll('.error-msg').forEach(m => m.style.display = 'none');
+
+            if (name.value.trim().length < 2) {
+                document.getElementById('name-error').style.display = 'block';
+                isValid = false;
+            }
+
+            const phonePattern = /^(?:\+234|0)[789][01]\d{8}$/;
+            if (!phonePattern.test(phone.value.replace(/\s/g, ''))) {
+                document.getElementById('phone-error').style.display = 'block';
+                isValid = false;
+            }
+
+            if (!email.value.includes('@') || email.value.length < 5) {
+                document.getElementById('email-error').style.display = 'block';
+                isValid = false;
+            }
+
+            if (enquiry.value === "") {
+                document.getElementById('enquiry-error').style.display = 'block';
+                isValid = false;
+            }
+
+            if (message.value.trim().length < 5) {
+                document.getElementById('message-error').style.display = 'block';
+                isValid = false;
+            }
+
+            if (isValid) {
+                document.getElementById('success-msg').style.display = 'block';
+                contactForm.reset();
+                setTimeout(() => {
+                    document.getElementById('success-msg').style.display = 'none';
+                }, 5000);
+            }
+        });
+
+        // --- 10. Opening Hours Detect Today ---
+        function highlightToday() {
+            const today = new Date().getDay(); // 0 is Sunday, 1 is Monday...
+            let rowId = '';
+            if (today >= 1 && today <= 5) rowId = 'day-1';
+            else if (today === 6) rowId = 'day-6';
+            else if (today === 0) rowId = 'day-0';
+
+            const row = document.getElementById(rowId);
+            if (row) {
+                row.classList.add('today-highlight');
+                row.cells[0].innerHTML += ' (Today)';
+            }
+        }
+        highlightToday();
+
+        // --- 12. Rotating Daily Health Tip (Hero) ---
+        const dailyTips = [
+            "Start your day with a tall glass of lukewarm water to kickstart your metabolism.",
+            "Aim for 30 minutes of brisk walking today to strengthen your heart.",
+            "Add a serving of leafy greens to your lunch for essential fiber and vitamins.",
+            "Take the stairs instead of the elevator today. Every step counts!",
+            "Reduce your salt intake today to help manage your blood pressure naturally.",
+            "Practice deep breathing for 5 minutes this afternoon to lower your stress levels.",
+            "Eat a piece of fruit instead of a sugary snack for a natural energy boost."
+        ];
+
+        function rotateHeroTip() {
+            const card = document.getElementById('hero-tip-card');
+            const content = document.getElementById('health-tip-content');
+            
+            // Random tip
+            const randomIndex = Math.floor(Math.random() * dailyTips.length);
+            content.innerText = dailyTips[randomIndex];
+            
+            setTimeout(() => {
+                card.style.display = 'block';
+            }, 1500);
+        }
+        rotateHeroTip();
+
+        // --- Scroll to Top ---
+        document.getElementById('scroll-top').addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+    </script>
+</body>
+</html>
